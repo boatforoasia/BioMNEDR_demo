@@ -24,8 +24,7 @@ All data in this manuscript complied from numerous public data sources including
 [the Human Cell Atlas Ontology](https://github.com/HumanCellAtlas/ontology).
 
 ## Repository layout
-- [data/](data/) — raw input TSVs.  
-- [msi/](msi/) — graph component classes and loader.  
+- [data/](data/) — raw input TSVs.   
 - [feature/](feature/) — precomputed feature files used in the paper (embedding vectors).  
 - [model/](model/) — saved trained models.  
 - [case_study_demo.py](case_study_demo.py) — demo to run inference with a saved model (uses [`case_study_demo.load_features`](case_study_demo.py) and [`case_study_demo.main`](case_study_demo.py)).  
