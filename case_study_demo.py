@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 import xgboost as xgb
-from msi.msi import MSI
 import os
+import ast
 
 FEATURE_LIST = [
     "feature/d2p2i_1000_100_++_s128_w5_n5_ts1e9.txt",
@@ -16,8 +16,15 @@ MODEL_LIST = [
     "model/BioMNEDR_feat_2.model",
     "model/BioMNEDR_feat_3.model",
 ]
-INDICATION_ID = "C0002395"  # Alzheimer's disease
+INDICATION_ID = "C0030567"  # Parkinson's Disease
 ASSOCIATION_PATH = "data/6_drug_indication_df.tsv"
+IDX2NODE_PATH = "data/idx2node.txt"
+
+def load_idx2node(path):
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read().strip()
+    idx2node = ast.literal_eval(content)
+    return {int(k): str(v) for k, v in idx2node.items()}
 
 def load_features(feature_file_path, idx2node):
     features = {}
@@ -31,9 +38,7 @@ def load_features(feature_file_path, idx2node):
     return features
 
 def main():
-    msi = MSI()
-    msi.load()
-    idx2node = msi.idx2node
+    idx2node = load_idx2node(IDX2NODE_PATH)
 
     df = pd.read_csv(ASSOCIATION_PATH, sep="\t", dtype=str)
     drug_list = df["drug"].unique()
